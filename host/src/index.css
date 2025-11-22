@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Optional custom styles */
+body {
+  @apply bg-gray-900 text-gray-900;
+}
+
+#google_translate_element select {
+  background: rgba(255,255,255,0.1);
+  color: white;
+  border-radius: 9999px;
+  padding: 0.5rem 1rem;
+  border: none;
+  font-weight: bold;
+}
+#google_translate_element select option {
+  background: white;
+  color: black;
+}
+
+a {
+  @apply text-blue-600 hover:underline;
+}
+
+button {
+  @apply bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @apply font-bold;
+}
+
+.container {
+  @apply max-w-7xl mx-auto px-4;
+}
+
+.card {
+  @apply bg-white shadow-md rounded-lg p-6;
+}
+
+.navbar {
+  @apply bg-white shadow p-4 flex justify-between items-center;
+}
+
+.footer {
+  @apply bg-gray-800 text-gray-300 p-6 text-center;
+}
+
+.input {
+  @apply border border-gray-300 rounded px-4 py-2 w-full;
+}
