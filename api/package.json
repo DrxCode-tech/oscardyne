@@ -17,6 +17,7 @@
     "firebase-admin": "^13.6.0",
     "formidable": "^3.5.4",
     "multiparty": "^4.2.3",
-    "nodemailer": "^7.0.10"
+    "nodemailer": "^7.0.10",
+    "openai": "^6.9.1"
   }
 }
