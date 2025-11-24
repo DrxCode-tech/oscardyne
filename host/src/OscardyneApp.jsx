@@ -439,9 +439,9 @@ function Contact() {
           <div className="rounded-2xl p-6 bg-black/60 border border-white/6">
             <h3 className="text-xl font-semibold text-white">Contact</h3>
             <div className="mt-3 text-gray-300 flex flex-col gap-2">
-              <div className="flex items-center gap-2"><MapPin /> Lagos, Nigeria</div>
-              <div className="flex items-center gap-2"><Phone /> +234 800 000 0000</div>
-              <div className="flex items-center gap-2"><Mail /> contact@oscardyne.com</div>
+              <div className="flex items-center gap-2"><MapPin /> Calgary Albert Canada</div>
+              <div className="flex items-center gap-2"><Phone /> (403) 472 1928</div>
+              <div className="flex items-center gap-2"><Mail /> oscarfitnessco@gmail.com</div>
             </div>
 
             <div className="mt-6">
@@ -461,16 +461,30 @@ function AIChat() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const sendMessage = () => {
+  const sendMessage = async () => {
     if (!input.trim()) return;
-    setMessages((prev) => [...prev, { text: input, from: "user" }]);
+
+    const userMsg = input;
+    setMessages((prev) => [...prev, { text: userMsg, from: "user" }]);
     setInput("");
     setLoading(true);
-    setTimeout(() => {
-      setMessages((prev) => [...prev, { text: "This is an AI response to: " + input, from: "ai" }]);
-      setLoading(false);
-    }, 1200);
+
+    try {
+      const res = await fetch("/api/ai", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ txt: userMsg }),
+      });
+
+      const data = await res.json();
+      setMessages((prev) => [...prev, { text: data.reply, from: "ai" }]);
+    } catch (err) {
+      setMessages((prev) => [...prev, { text: "AI Error: " + err.message, from: "ai" }]);
+    }
+
+    setLoading(false);
   };
+
 
   return (
     <div className="w-full max-w-3xl mx-auto my-10 p-6 rounded-3xl bg-black/50 backdrop-blur-xl shadow-[0_15px_40px_rgba(0,0,0,0.5)]">
