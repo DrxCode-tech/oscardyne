@@ -6,6 +6,11 @@ import { db, storage } from "./firebaseConfig";
 import { collection, addDoc, Timestamp } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
+import ReactMarkdown from "react-markdown";
+import rehypeHighlight from "rehype-highlight";
+import "highlight.js/styles/github-dark.css"; // Or any highlight theme you like
+
+
 
 // Assets (ensure these exist in /src/assets)
 import HeroImg from "./assets/Security1.jpg";
@@ -495,7 +500,7 @@ function AIChat() {
       <div className="flex flex-col gap-3 max-h-[400px] overflow-y-auto mb-4 p-4 rounded-2xl bg-black/30 backdrop-blur-lg shadow-inner">
         {messages.map((msg, i) => (
           <div key={i} className={`p-3 rounded-xl text-sm max-w-[75%] break-words ${msg.from === "user" ? "bg-blue-600/30 text-white self-end" : "bg-white/10 text-gray-200 self-start"}`}>
-            {msg.text}
+            <ReactMarkdown rehypePlugins={[rehypeHighlight]}>{msg.text}</ReactMarkdown>
           </div>
         ))}
         {loading && <div className="flex items-center gap-2 text-gray-300 animate-pulse text-sm"><Loader2 size={16} /> Processing...</div>}
