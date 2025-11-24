@@ -482,13 +482,31 @@ function AIChat() {
       });
 
       const data = await res.json();
-      setMessages((prev) => [...prev, { text: data.reply, from: "ai" }]);
+      const aiText = data.reply;
+
+      // Add AI message as empty first
+      setMessages((prev) => [...prev, { text: "", from: "ai" }]);
+
+      let index = 0;
+      const interval = setInterval(() => {
+        setMessages((prev) => {
+          const newMessages = [...prev];
+          const aiMessage = newMessages.find((m) => m.from === "ai" && m.text === "");
+          if (aiMessage) {
+            aiMessage.text += aiText[index];
+          }
+          return newMessages;
+        });
+        index++;
+        if (index >= aiText.length) clearInterval(interval);
+      }, 20); // 20ms per character, adjust speed here
     } catch (err) {
       setMessages((prev) => [...prev, { text: "AI Error: " + err.message, from: "ai" }]);
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
+
 
 
   return (
@@ -502,8 +520,8 @@ function AIChat() {
           <div
             key={i}
             className={`px-5 py-4 rounded-2xl text-sm max-w-[75%] break-words leading-relaxed ${msg.from === "user"
-                ? "bg-blue-600/30 text-white self-end"
-                : "bg-white/10 text-gray-200 self-start"
+              ? "bg-blue-600/30 text-white self-end"
+              : "bg-white/10 text-gray-200 self-start"
               }`}
           >
             <ReactMarkdown rehypePlugins={[rehypeHighlight]}>
