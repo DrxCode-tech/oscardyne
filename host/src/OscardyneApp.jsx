@@ -391,7 +391,14 @@ function Careers() {
             <input name="email" type="email" value={form.email} onChange={handleChange} placeholder="Email" required className="p-4 rounded-xl bg-black/60 border border-white/10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition" />
             <input name="phone" value={form.phone} onChange={handleChange} placeholder="Phone number" required className="p-4 rounded-xl bg-black/60 border border-white/10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition" />
 
-            <input type="file" accept="image/*,.pdf,.doc,.docx" onChange={handleFileChange} className="p-4 rounded-xl bg-black/60 border border-white/10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition" />
+            <input
+              type="file"
+              name="file"
+              accept="image/*,.pdf,.doc,.docx"
+              onChange={handleFileChange}
+              className="p-4 rounded-xl bg-black/60 border border-white/10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+            />
+
 
             {selectedFile && (
               <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.35 }} className="mt-4 flex justify-center">
