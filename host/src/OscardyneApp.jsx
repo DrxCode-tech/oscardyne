@@ -249,6 +249,7 @@ function Services() {
 // ------------------ WhyUs ------------------
 function WhyUs() {
   const points = ["Licensed & Vetted Personnel", "24/7 Operations & Rapid Response", "Custom Security Plans", "Modern Equipment & Monitoring"];
+  const navigate = useNavigate();
   return (
     <section id="why" className="py-16">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-8 items-center">
@@ -267,7 +268,7 @@ function WhyUs() {
           <h3 className="text-xl font-semibold text-white mb-3">Custom Security Plan</h3>
           <p className="text-gray-300 text-sm">Tell us about your site and we'll craft a security plan to fit your needs. Free assessment available.</p>
           <div className="mt-4">
-            <a href="/assessment" className="inline-flex items-center px-4 py-3 rounded-lg bg-gradient-to-r from-blue-600 to-yellow-400 text-black font-semibold">Get Assessment</a>
+            <button onClick={() => navigate("/assessment")} className="inline-flex items-center px-4 py-3 rounded-lg bg-gradient-to-r from-blue-600 to-yellow-400 text-black font-semibold">Get Assessment</button>
           </div>
         </div>
       </div>
