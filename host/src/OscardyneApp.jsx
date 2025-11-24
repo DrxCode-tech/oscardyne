@@ -519,6 +519,12 @@ function AIChat() {
       </div>
 
 
+      <div className="flex gap-3">
+        <input type="text" value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => e.key === "Enter" && sendMessage()} placeholder="Ask the AI..." className="flex-1 px-4 py-3 rounded-2xl bg-white/5 backdrop-blur-md text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 transition" />
+        <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={sendMessage} className="px-5 py-3 rounded-2xl bg-gradient-to-r from-blue-600 to-yellow-400 text-black font-semibold shadow-md flex items-center gap-2">
+          <Send size={18} /> Send
+        </motion.button>
+      </div>
     </div>
   );
 }
