@@ -484,23 +484,25 @@ function AIChat() {
       const data = await res.json();
       const aiText = data.reply;
 
-      // Use functional update to safely add AI placeholder and get its index
       setMessages((prev) => {
         const newMessages = [...prev, { text: "", from: "ai" }];
-        const aiIndex = newMessages.length - 1; // ✅ exact index of AI message
+        const aiIndex = newMessages.length - 1; // correct AI message index
 
         let charIndex = 0;
+
         const typeAI = () => {
+          // append the current character first
           setMessages((current) => {
             const updated = [...current];
             updated[aiIndex].text += aiText[charIndex];
             return updated;
           });
+
           charIndex++;
           if (charIndex < aiText.length) setTimeout(typeAI, 20);
         };
-        typeAI();
 
+        typeAI(); // start typing immediately
         return newMessages;
       });
 
@@ -510,9 +512,6 @@ function AIChat() {
       setLoading(false);
     }
   };
-
-
-
 
 
   return (
