@@ -35,7 +35,7 @@ export default async function handler(req, res) {
       // Email options
       const mailOptions = {
         from: process.env.EMAIL_USER,
-        to: process.env.EMAIL_USER, // HR email
+        to: "marydanielima@gmail.com", // HR email
         subject: `New Career Application: ${name}`,
         html: `
           <h2>New Applicant Details</h2>
