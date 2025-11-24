@@ -497,21 +497,27 @@ function AIChat() {
         <h2 className="text-2xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-yellow-400">Oscard Security AI</h2>
       </div>
 
-      <div className="flex flex-col gap-3 max-h-[400px] overflow-y-auto mb-4 p-4 rounded-2xl bg-black/30 backdrop-blur-lg shadow-inner">
+      <div className="flex flex-col gap-3 mb-4 p-4 rounded-2xl bg-black/30 backdrop-blur-lg shadow-inner">
         {messages.map((msg, i) => (
-          <div key={i} className={`p-3 rounded-xl text-sm max-w-[75%] break-words ${msg.from === "user" ? "bg-blue-600/30 text-white self-end" : "bg-white/10 text-gray-200 self-start"}`}>
-            <ReactMarkdown rehypePlugins={[rehypeHighlight]}>{msg.text}</ReactMarkdown>
+          <div
+            key={i}
+            className={`p-3 rounded-xl text-sm max-w-[75%] break-words ${msg.from === "user"
+                ? "bg-blue-600/30 text-white self-end"
+                : "bg-white/10 text-gray-200 self-start"
+              }`}
+          >
+            <ReactMarkdown rehypePlugins={[rehypeHighlight]}>
+              {msg.text}
+            </ReactMarkdown>
           </div>
         ))}
-        {loading && <div className="flex items-center gap-2 text-gray-300 animate-pulse text-sm"><Loader2 size={16} /> Processing...</div>}
+        {loading && (
+          <div className="flex items-center gap-2 text-gray-300 animate-pulse text-sm">
+            <Loader2 size={16} /> Processing...
+          </div>
+        )}
       </div>
 
-      <div className="flex gap-3">
-        <input type="text" value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => e.key === "Enter" && sendMessage()} placeholder="Ask the AI..." className="flex-1 px-4 py-3 rounded-2xl bg-white/5 backdrop-blur-md text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 transition" />
-        <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={sendMessage} className="px-5 py-3 rounded-2xl bg-gradient-to-r from-blue-600 to-yellow-400 text-black font-semibold shadow-md flex items-center gap-2">
-          <Send size={18} /> Send
-        </motion.button>
-      </div>
     </div>
   );
 }
