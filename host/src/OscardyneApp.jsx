@@ -497,11 +497,11 @@ function AIChat() {
         <h2 className="text-2xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-yellow-400">Oscard Security AI</h2>
       </div>
 
-      <div className="flex flex-col gap-3 mb-4 p-4 rounded-2xl bg-black/30 backdrop-blur-lg shadow-inner">
+      <div className="flex flex-col gap-4 mb-4 p-6 rounded-2xl bg-black/30 backdrop-blur-lg shadow-inner">
         {messages.map((msg, i) => (
           <div
             key={i}
-            className={`p-3 rounded-xl text-sm max-w-[75%] break-words ${msg.from === "user"
+            className={`px-5 py-4 rounded-2xl text-sm max-w-[75%] break-words leading-relaxed ${msg.from === "user"
                 ? "bg-blue-600/30 text-white self-end"
                 : "bg-white/10 text-gray-200 self-start"
               }`}
@@ -517,6 +517,7 @@ function AIChat() {
           </div>
         )}
       </div>
+
 
     </div>
   );
