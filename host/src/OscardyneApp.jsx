@@ -339,7 +339,7 @@ function Careers() {
       formData.append("name", form.name);
       formData.append("email", form.email);
       formData.append("phone", form.phone);
-      if (selectedFile && selectedFile.file) formData.append("file", selectedFile.file);
+      if (selectedFile?.file) formData.append("file", selectedFile.file);
 
       const response = await fetch("/api/career", { method: "POST", body: formData });
       const result = await response.json().catch(() => ({}));

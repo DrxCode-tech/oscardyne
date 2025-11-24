@@ -1,13 +1,15 @@
+// firebase.js
 import admin from "firebase-admin";
 
-const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY);
 
 if (!admin.apps.length) {
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    storageBucket: "note-44501.appspot.com", // your bucket
+    databaseURL: `https://${serviceAccount.project_id}.firebaseio.com`,
   });
 }
 
-export const db = admin.firestore();
-export const bucket = admin.storage().bucket();
+const db = admin.firestore();
+
+export { db };
