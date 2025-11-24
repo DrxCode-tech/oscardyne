@@ -484,22 +484,30 @@ function AIChat() {
       const data = await res.json();
       const aiText = data.reply;
 
-      // Add AI message as empty first
+      // Add AI message placeholder
       setMessages((prev) => [...prev, { text: "", from: "ai" }]);
 
       let index = 0;
-      const interval = setInterval(() => {
+
+      const typeAI = () => {
         setMessages((prev) => {
           const newMessages = [...prev];
-          const aiMessage = newMessages.find((m) => m.from === "ai" && m.text === "");
-          if (aiMessage) {
-            aiMessage.text += aiText[index];
+          // Find the last AI message
+          const lastAIIndex = newMessages.map(m => m.from).lastIndexOf("ai");
+          if (lastAIIndex !== -1) {
+            newMessages[lastAIIndex].text += aiText[index];
           }
           return newMessages;
         });
+
         index++;
-        if (index >= aiText.length) clearInterval(interval);
-      }, 20); // 20ms per character, adjust speed here
+        if (index < aiText.length) {
+          setTimeout(typeAI, 20); // adjust typing speed here
+        }
+      };
+
+      typeAI();
+
     } catch (err) {
       setMessages((prev) => [...prev, { text: "AI Error: " + err.message, from: "ai" }]);
     } finally {
