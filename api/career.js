@@ -1,51 +1,70 @@
-import multiparty from "multiparty";
+import { v2 as cloudinary } from "cloudinary";
+import formidable from "formidable";
 import fs from "fs";
-import { db, bucket } from "./firebaseAdmin.js";
+import admin from "firebase-admin";
 
+// Disable default body parser
 export const config = { api: { bodyParser: false } };
 
+// Initialize Firebase Admin
+if (!admin.apps.length) {
+  admin.initializeApp({
+    credential: admin.credential.cert(JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT)),
+  });
+}
+const db = admin.firestore();
+
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
 export default async function handler(req, res) {
-  if (req.method !== "POST") return res.status(405).json({ success: false, message: "Method not allowed" });
+  if (req.method !== "POST") {
+    return res.status(405).json({ success: false, message: "Method not allowed" });
+  }
 
   try {
-    const parseForm = () =>
-      new Promise((resolve, reject) => {
-        const form = new multiparty.Form();
-        form.parse(req, (err, fields, files) => (err ? reject(err) : resolve({ fields, files })));
+    const form = new formidable.IncomingForm();
+    const { fields, files } = await new Promise((resolve, reject) => {
+      form.parse(req, (err, fields, files) => {
+        if (err) reject(err);
+        else resolve({ fields, files });
       });
+    });
 
-    const { fields, files } = await parseForm();
-
-    const name = fields.name?.[0] || "";
-    const email = fields.email?.[0] || "";
-    const phone = fields.phone?.[0] || "";
-    const file = files.file?.[0];
+    const { name = "", email = "", phone = "" } = fields;
+    const file = files.file;
 
     let fileUrl = null;
 
     if (file) {
-      const upload = await bucket.upload(file.path, {
-        destination: `applications/${Date.now()}-${file.originalFilename}`,
-        metadata: { contentType: file.headers["content-type"] },
+      const uploaded = await cloudinary.uploader.upload(file.filepath, {
+        folder: "applications",
+        resource_type: "auto",
       });
-
-      const uploadedFile = upload[0];
-      await uploadedFile.makePublic(); // make public (optional, otherwise generate signed URL)
-      fileUrl = uploadedFile.publicUrl();
+      fileUrl = uploaded.secure_url;
     }
 
-    // Save applicant info in Firestore
-    await db.collection("applications").add({
+    // Save to Firebase
+    await db.collection("job_applications").add({
       name,
       email,
       phone,
       fileUrl,
-      createdAt: new Date(),
+      date: new Date().toISOString(),
+      submittedAt: admin.firestore.FieldValue.serverTimestamp(),
     });
 
-    return res.status(200).json({ success: true, message: "Application submitted successfully!", fileUrl });
-  } catch (err) {
-    console.error(err);
-    return res.status(500).json({ success: false, message: err.message || "Failed to submit application." });
+    return res.status(200).json({
+      success: true,
+      message: "Application submitted successfully!",
+      fileUrl,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ success: false, message: error.message || "Failed to submit application." });
   }
 }
