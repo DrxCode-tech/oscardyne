@@ -1,6 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(relativeTime);
+
 
 export default function CareerDashboard() {
   const [apps, setApps] = useState([]);
@@ -54,7 +58,7 @@ export default function CareerDashboard() {
               <p className="text-blue-300 text-sm">{app.email}</p>
               <p className="text-gray-300 text-sm">{app.phone}</p>
               <p className="text-xs text-gray-400 mt-2">
-                Applied: {new Date(app.submittedAt).toLocaleString()}
+                Applied: {dayjs(app.submittedAt).fromNow()}
               </p>
 
               {/* EMAIL BUTTON */}
