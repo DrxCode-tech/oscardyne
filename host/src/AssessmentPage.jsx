@@ -25,6 +25,7 @@ export default function AssessmentPage() {
     timeline: "Immediately",
     notes: "",
   });
+  const [aiResponse, setAIResponse] = useState("");
 
   const update = (field, value) => {
     setForm((prev) => ({ ...prev, [field]: value }));
