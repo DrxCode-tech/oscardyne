@@ -2,6 +2,9 @@ import { useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import ReactMarkdown from "react-markdown";
+import rehypeHighlight from "rehype-highlight";
+import "highlight.js/styles/github-dark.css";
 
 export default function AssessmentPage() {
   const [form, setForm] = useState({
@@ -332,10 +335,22 @@ export default function AssessmentPage() {
       </form>
 
       {aiResponse && (
-        <div className="mt-10 p-5 bg-black/40 rounded-xl border border-white/10">
-          <h3 className="text-xl font-bold mb-4">Your Personalised Security Assessment</h3>
-          <p className="text-gray-200 whitespace-pre-wrap">{aiResponse}</p>
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="max-w-4xl mx-auto mt-16 bg-gradient-to-br from-black/60 to-black/30 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-xl"
+        >
+          <h3 className="text-2xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-yellow-400 bg-clip-text text-transparent">
+            Your Personalised Security Assessment
+          </h3>
+
+          <div className="text-gray-200 leading-relaxed whitespace-pre-wrap text-lg tracking-wide">
+            <ReactMarkdown rehypePlugins={[rehypeHighlight]}>
+              {aiResponse}
+            </ReactMarkdown>
+          </div>
+        </motion.div>
       )}
 
     </div>
