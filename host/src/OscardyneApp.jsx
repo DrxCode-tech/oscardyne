@@ -608,22 +608,34 @@ function AIChat() {
 }
 
 // ------------------ Footer ------------------
+import { Facebook, Instagram, Linkedin, Youtube, Phone, MessageCircle } from "lucide-react";
+
 function Footer() {
   return (
-    <footer className="py-10 mt-12 border-t border-white/8 bg-black/80">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-3 gap-6 items-start">
+    <footer className="py-10 mt-12 border-t border-white/10 bg-black/90">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-3 gap-8">
+
+        {/* Logo + Copyright */}
         <div>
           <div className="flex items-center gap-3">
-            <img src={LogoImg} alt="logo" className="h-10 w-10 object-contain rounded-md" />
+            <img
+              src={LogoImg}
+              alt="logo"
+              className="h-10 w-10 object-contain rounded-md"
+            />
             <div className="font-bold text-white">Oscardyne Security Logistics</div>
           </div>
-          <div className="text-gray-400 text-sm mt-3">© {new Date().getFullYear()} Oscardyne. All rights reserved.</div>
+
+          <p className="text-gray-400 text-sm mt-3">
+            © {new Date().getFullYear()} Oscardyne. All rights reserved.
+          </p>
         </div>
 
-        <div className="flex gap-8 text-sm text-gray-300">
+        {/* Company Links */}
+        <div className="flex gap-12 text-sm text-gray-300">
           <div>
             <div className="font-semibold text-white mb-2">Company</div>
-            <a href="#" className="block hover:text-white">About</a>
+            <a href="#about" className="block hover:text-white">About</a>
             <a href="#careers" className="block hover:text-white">Careers</a>
             <a href="#contact" className="block hover:text-white">Contact</a>
           </div>
@@ -636,14 +648,50 @@ function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-col items-start gap-3">
-          <div className="font-semibold text-white">Trusted by</div>
-          <div className="flex items-center gap-3"><img src={Badge1} alt="badge" className="h-10" /><img src={Badge2} alt="badge" className="h-10" /></div>
+        {/* Socials + Trust */}
+        <div className="flex flex-col items-start gap-4">
+
+          <div>
+            <div className="font-semibold text-white mb-2">Follow Us</div>
+
+            <div className="flex items-center gap-4">
+              <a href="https://www.linkedin.com" target="_blank" className="hover:text-white text-gray-400">
+                <Linkedin size={20} />
+              </a>
+
+              <a href="https://wa.me/14034721928" target="_blank" className="hover:text-white text-gray-400">
+                <MessageCircle size={20} />
+              </a>
+
+              <a href="https://facebook.com" target="_blank" className="hover:text-white text-gray-400">
+                <Facebook size={20} />
+              </a>
+
+              <a href="https://instagram.com" target="_blank" className="hover:text-white text-gray-400">
+                <Instagram size={20} />
+              </a>
+
+              <a href="https://youtube.com" target="_blank" className="hover:text-white text-gray-400">
+                <Youtube size={22} />
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <div className="font-semibold text-white mb-2">Trusted By</div>
+            <div className="flex items-center gap-3">
+              <img src={Badge1} alt="badge" className="h-10" />
+              <img src={Badge2} alt="badge" className="h-10" />
+            </div>
+          </div>
+
         </div>
+
       </div>
     </footer>
   );
 }
+
 
 // ------------------ Main App ------------------
 export default function OscardyneApp() {
