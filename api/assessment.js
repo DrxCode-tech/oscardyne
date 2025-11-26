@@ -29,8 +29,8 @@ Your goals:
 6. Always close with:
    - an invitation to take action now
    - your official contact details:
-     • Email: support@oscardynesecurity.com
-     • Phone: +234 81 40 92 8800
+     • Email: oscarfitnessco@gmail.com
+     • Phone: (403) 472 1928
 7. Keep everything personalised. Use the user’s name, property type, weaknesses, threat level, and selected services.
 
 Tone:
