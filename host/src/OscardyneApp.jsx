@@ -610,6 +610,7 @@ function AIChat() {
 
 // ------------------ Footer ------------------
 function Footer() {
+  const navigate = useNavigate();
   return (
     <footer className="py-10 mt-12 border-t border-white/10 bg-black/90">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-3 gap-8">
@@ -624,6 +625,9 @@ function Footer() {
             />
             <div className="font-bold text-white">Oscardyne Security Logistics</div>
           </div>
+          <button onClick={() => navigate('/jobs')} className="mt-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+            View Job Applications
+          </button>
 
           <p className="text-gray-400 text-sm mt-3">
             © {new Date().getFullYear()} Oscardyne. All rights reserved.
